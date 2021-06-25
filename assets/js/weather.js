@@ -18,6 +18,8 @@
 					data: request,
 					success: function(data) {
 						var res = data.data;
+						
+						// console.log(res);
 
 						if (res.status == 1) {
 							return false;	
@@ -29,7 +31,7 @@
 							class: 'weather-item',
 							html: '<div class="weather-temp-wrap">' +
 									'<div class="weather-temp">' + res.temp + '</div>' +
-									'<div class="weather-icon"><img src="' + res.icon + '" /></div>' +
+									// '<div class="weather-icon"><img src="' + res.icon + '" /></div>' +
 								'</div>' +
 								'<div class="weather-condition">' + res.condition + '</div>' +
 								'<div class="weather-location">' + res.location + '</div>'

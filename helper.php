@@ -82,6 +82,7 @@ abstract class modYandexWeatherHelper {
 
 	public static function getWeatherParams($array) {
 
+		header('Content-Type: application/json');
 		
 		if (is_null($array)) {
 			return (object) [
@@ -109,9 +110,10 @@ abstract class modYandexWeatherHelper {
 			
 			if ($date_modified <= self::$CACHE_LIFETIME && is_file(self::$CACHE_FILE)) {
 				$data = file_get_contents(self::$CACHE_FILE);
+
 			} else {
 				$data = self::getYandexPogodaArray();
-				file_put_contents(self::$CACHE_FILE, json_encode($data));
+				file_put_contents(self::$CACHE_FILE, $data);
 			}
 
 			if (count( (array) $data) == 0 || empty($data)) {
@@ -121,8 +123,6 @@ abstract class modYandexWeatherHelper {
 		} else {
 			$data = self::getYandexPogodaArray();
 		}
-
-
 
 		return json_decode($data);
 	}
@@ -145,9 +145,14 @@ abstract class modYandexWeatherHelper {
 		curl_setopt($ch, CURLOPT_URL, $struct_url);
 
 		$curl_result = curl_exec($ch);
+		$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		curl_close($ch);
 
-		return (curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200) ? json_decode($curl_result) : [];
+		if ($http_code === 200) {
+			return $curl_result;
+		} else {
+			return [];
+		}
 	}
 }
 
