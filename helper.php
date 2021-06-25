@@ -145,15 +145,9 @@ abstract class modYandexWeatherHelper {
 		curl_setopt($ch, CURLOPT_URL, $struct_url);
 
 		$curl_result = curl_exec($ch);
-		$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		$json_result = json_decode($curl_result);
 		curl_close($ch);
 
-		if ($http_code == 200) {
-			return $json_result;
-		} else {
-			return [];
-		}
+		return (curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200) ? json_decode($curl_result) : [];
 	}
 }
 
