@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="2.5" client="site" method="upgrade">
+    <name>Яндекс погода</name>
+    <author>Pavel Pronskiy</author>
+    <creationDate>2020-09-12</creationDate>
+    <copyright>Copyright (C) 2020 pronskiy.ru</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <authorEmail>pp@sweetgroup.ru</authorEmail>
+    <authorUrl>https://pronskiy.ru</authorUrl>
+    <version>1.0</version>
+    <description>Модуль вывода яндекс погоды</description>
+    
+    
+    <scriptfile>install.php</scriptfile>
+    
+    <!-- module actions now has no sql file
+    <install>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.sql</file>
+          </sql>
+    </install>
+    
+    
+    <uninstall>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.sql</file>
+          </sql>
+    </uninstall>
+    -->
+    
+    
+    <files>
+        <filename module="mod_yandexweather">mod_yandexweather.php</filename>
+        <folder>tmpl</folder>
+        <filename>index.html</filename>
+        <filename>mod_yandexweather.xml</filename>
+        <filename>helper.php</filename>
+        <filename>install.php</filename>
+    </files>
+    
+    
+    <help key="JHELP_EXTENSIONS_MODULE_MANAGER_FOOTER" />
+     
+    
+    <config>
+        
+        <fields name="params">
+       
+            <fieldset name="basic">
+                
+                <field
+                    name="apikey"
+                    type="text"
+                    description="Yandex API Key"
+                    label="АПИ ключ"
+                    required="true"
+                />
+
+                <field
+                    name="coords"
+                    type="text"
+                    description="GPS координаты"
+                    label="GPS Координаты"
+                    required="true"
+                />
+
+                <field
+                    name="location"
+                    type="text"
+                    description="Название города"
+                    label="Город"
+                    required="true"
+                />
+
+                <field
+                    name="mod"
+                    type="radio"
+                    default="0"
+                    class="btn-group"
+                    description="Версия"
+                    label="Пробная/Платная версия"
+                    required="true"
+                >
+                    <option value="0">Пробная</option>
+                    <option value="1">Платная</option>
+                </field>
+                <field
+                    name="cache_enabled"
+                    type="radio"
+                    default="1"
+                    class="btn-group"
+                    description="Кеширование ответа от яндекс API pogoda"
+                    label="Кеширование ответа"
+                >
+                    <option value="1">Включено</option>
+                    <option value="0">Отключено</option>
+                </field>
+                <field
+                    name="cache_lifetime"
+                    type="text"
+                    description="Время жизни закешированного ответа от яндекс API pogoda"
+                    label="Время жизни ответа"
+                />
+            </fieldset>
+
+            <fieldset name="advanced">
+                
+                <field
+                    name="layout"
+                    type="modulelayout"
+                    label="JFIELD_ALT_LAYOUT_LABEL"
+                    description="JFIELD_ALT_MODULE_LAYOUT_DESC"
+                />
+                
+                <field
+                    name="moduleclass_sfx"
+                    type="text"
+                    label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+                    description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
+                />
+                
+                <field
+                    name="cache"
+                    type="list"
+                    default="1"
+                    label="COM_MODULES_FIELD_CACHING_LABEL"
+                    description="COM_MODULES_FIELD_CACHING_DESC"
+                >
+                    <option
+                        value="1">JGLOBAL_USE_GLOBAL</option>
+                    <option
+                        value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+                </field>
+                
+                <field
+                    name="cache_time"
+                    type="text"
+                    default="900"
+                    label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
+                    description="COM_MODULES_FIELD_CACHE_TIME_DESC"
+                />
+                
+                <field
+                    name="cachemode"
+                    type="hidden"
+                    default="static"
+                >
+                    <option value="static"></option>
+                </field>
+                
+            </fieldset>
+            
+        </fields>
+        
+    </config>
+    
+    
+    <updateservers>
+        <!--<server type="collection">http://actions.com/list.xml</server>-->
+        <!-- <server type="extension" priority="1" name="Asikart actions Module">http://update.asikart.com/module/mod_actions.xml</server> -->
+    </updateservers>
+    
+    
+</extension>
