@@ -66,15 +66,15 @@ abstract class modYandexWeatherHelper {
 
 	public static function getAjax() {
 
-		$p = self::getModuleParamsByName('mod_yandexweather');
-		$coords = explode(',', $coords);
+		$params = self::getModuleParamsByName('mod_yandexweather');
+		$coords = explode(',', $params->coords);
 		self::$WEATHER->lat = $coords[0];
 		self::$WEATHER->lon = $coords[1];
-		self::$API_KEY = $p->apikey;
-		self::$GEO_LOCATION = $p->location;
-		self::$CACHE_ENABLED = !empty($p->cache_enabled) ? (int) $p->cache_enabled : 1;
-		self::$CACHE_LIFETIME = !empty($p->cache_lifetime) ? (int) $p->cache_lifetime : 1800;
-		self::$API_URL = $p->mod === '0' ? self::$API_URL . 'forecast' : self::$API_URL . 'informers';
+		self::$API_KEY = $params->apikey;
+		self::$GEO_LOCATION = $params->location;
+		self::$CACHE_ENABLED = !empty($params->cache_enabled) ? (int) $params->cache_enabled : 1;
+		self::$CACHE_LIFETIME = !empty($params->cache_lifetime) ? (int) $params->cache_lifetime : 1800;
+		self::$API_URL = $params->mod === '0' ? self::$API_URL . 'forecast' : self::$API_URL . 'informers';
 
 		$weather_array = self::getCachedWeather();
 		return self::getWeatherParams($weather_array);
